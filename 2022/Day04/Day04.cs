@@ -1,20 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Day04 : MonoBehaviour
+namespace AdventOfCode2022
 {
-    [SerializeField] private TextAsset puzzleInput;
-    [SerializeField] private string[] data;
+    class Day04 {         
+        static void Main(string[] args)
+        {
+            int sum = 0; 
+            string text = System.IO.File.ReadAllText(@"./day04-input.txt");
+            string [] data = text.Split('\n');
 
-    void Start()
-    {
-        data = puzzleInput.text.Split('\n');
-    }
+            for(int i = 0; i < data.Length; i++)
+            {
+                string leftRange = data[i].Split(',')[0];
+                string rightRange = data[i].Split(',')[1];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+                if(int.Parse(leftRange.Split('-')[0]) <= int.Parse(rightRange.Split('-')[1]) &&
+                   int.Parse(rightRange.Split('-')[0]) <= int.Parse(leftRange.Split('-')[1]))
+                {
+                    //Console.WriteLine("LEFT CONTAINS RIGHT at " + i);
+                    sum++;
+                }
+                // else if(int.Parse(leftRange.Split('-')[0]) >= int.Parse(rightRange.Split('-')[1]) &&
+                //    int.Parse(rightRange.Split('-')[1]) <= int.Parse(leftRange.Split('-')[1]))
+                // {
+                //     Console.WriteLine("RIGHT CONTAINS LEFT at " + i);
+                //     sum++;
+                // }
+            }
+
+            Console.WriteLine("TOTAL SUM: " + sum);
+        }
     }
 }
